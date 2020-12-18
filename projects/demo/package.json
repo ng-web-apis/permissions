@@ -15,11 +15,11 @@
         "@angular/platform-browser": "11.0.4",
         "@angular/platform-browser-dynamic": "11.0.4",
         "@angular/router": "11.0.4",
+        "@ng-web-apis/common": "latest",
         "@ng-web-apis/permissions": "latest",
         "core-js": "2.6.9",
         "rxjs": "~6.6.3",
-        "zone.js": "~0.10.2",
-        "permissions": "latest"
+        "zone.js": "~0.10.2"
     },
     "devDependencies": {
         "@angular-devkit/architect": "0.1100.4",
