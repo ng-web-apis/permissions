@@ -7,7 +7,7 @@
         "dev:ssr": "ng run demo:serve-ssr",
         "build:ssr": "ng build --prod && ng run demo:server:production",
         "prerender": "ng run demo:prerender",
-        "build": "ng build",
+        "build": "ng build permissions && ng build demo",
         "postbuild": "node scripts/postbuild.js",
         "serve:prerender": "cd dist/demo/browser && http-server",
         "compile:server": "tsc -p ./projects/demo/tsconfig.ssr.json",
