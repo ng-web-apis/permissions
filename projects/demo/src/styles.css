@@ -1,3 +1,5 @@
+@import '~highlight.js/styles/github.css';
+
 /* Base demo styles */
 body,
 html {
@@ -6,7 +8,7 @@ html {
     margin: 0;
     height: 100%;
     font-family: Roboto, 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial,
-    'Lucida Grande', sans-serif;
+        'Lucida Grande', sans-serif;
     color: #444;
 }
 
@@ -25,6 +27,8 @@ main {
     display: flex;
     justify-content: center;
     padding: 40px 0;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 footer {
@@ -35,10 +39,14 @@ footer {
 }
 
 a {
-    color: #1976D2;
+    color: #1976d2;
     text-decoration: none;
 }
 
 .logo {
     margin-right: 20px;
+}
+
+.align-center {
+    text-align: center;
 }
