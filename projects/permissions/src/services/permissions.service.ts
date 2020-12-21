@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {from, fromEvent, Observable} from 'rxjs';
-import {shareReplay, switchMap, tap} from 'rxjs/operators';
+import {map, shareReplay, startWith, switchMap} from 'rxjs/operators';
 import {PERMISSIONS} from '../tokens/permissions';
 import {PERMISSIONS_SUPPORT} from '../tokens/permissions-support';
 
@@ -32,20 +32,16 @@ export class PermissionsService {
                 return;
             }
 
-            const sub = from(this.permissions.query(descriptor))
+            return from(this.permissions.query(descriptor))
                 .pipe(
-                    tap(permissionStatus => subscriber.next(permissionStatus.state)),
-                    switchMap(permissionStatus => fromEvent(permissionStatus, 'change')),
+                    switchMap(status =>
+                        fromEvent(status, 'change').pipe(
+                            startWith(null),
+                            map(() => status.state),
+                        ),
+                    ),
                 )
-                .subscribe(
-                    ev => subscriber.next((ev.target as PermissionStatus).state),
-                    error => subscriber.error(error),
-                );
-
-            // clean up
-            return () => {
-                sub.unsubscribe();
-            };
+                .subscribe(subscriber);
         }).pipe(shareReplay({bufferSize: 1, refCount: true}));
     }
 }
