@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
-import {from, Observable, Subject} from 'rxjs';
-import {shareReplay, takeUntil} from 'rxjs/operators';
+import {from, fromEvent, Observable} from 'rxjs';
+import {shareReplay, switchMap, tap} from 'rxjs/operators';
 import {PERMISSIONS} from '../tokens/permissions';
 import {PERMISSIONS_SUPPORT} from '../tokens/permissions-support';
 
@@ -32,33 +32,19 @@ export class PermissionsService {
                 return;
             }
 
-            let permissionStatus: PermissionStatus | undefined;
-
-            function onChange(this: PermissionStatus) {
-                subscriber.next(this.state);
-            }
-
-            const destroy = new Subject();
-
-            from(this.permissions.query(descriptor))
-                .pipe(takeUntil(destroy))
+            const sub = from(this.permissions.query(descriptor))
+                .pipe(
+                    tap(permissionStatus => subscriber.next(permissionStatus.state)),
+                    switchMap(permissionStatus => fromEvent(permissionStatus, 'change')),
+                )
                 .subscribe(
-                    res => {
-                        permissionStatus = res;
-                        subscriber.next(res.state);
-                        permissionStatus.addEventListener('change', onChange);
-                    },
+                    ev => subscriber.next((ev.target as PermissionStatus).state),
                     error => subscriber.error(error),
                 );
 
             // clean up
             return () => {
-                destroy.next();
-                destroy.complete();
-
-                if (permissionStatus) {
-                    permissionStatus.removeEventListener('change', onChange);
-                }
+                sub.unsubscribe();
             };
         }).pipe(shareReplay({bufferSize: 1, refCount: true}));
     }

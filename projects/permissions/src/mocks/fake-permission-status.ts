@@ -7,7 +7,9 @@ export class FakePermissionStatus implements PermissionStatus {
         this.state = state;
 
         if (this.onchange) {
-            this.onchange(new Event('change'));
+            const event: Event = {type: 'change', target: this} as any;
+
+            this.onchange(event);
         }
     }
 
