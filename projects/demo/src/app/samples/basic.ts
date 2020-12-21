@@ -11,7 +11,7 @@ export class AppComponent {
   geolocationState$ = this.permissionsService.state('geolocation');
 
   constructor(
-    @Inject(PermissionsService) readonly permissionsService: PermissionsService,
+    private readonly permissionsService: PermissionsService,
   ) {}
 }
 `;
