@@ -3,9 +3,7 @@ name: Build and Release
 on:
   push:
     branches:
-      - main
-      - next
-      - beta
+      - 'release/**'
 
 jobs:
   release:
@@ -24,7 +22,7 @@ jobs:
       - name: Release
         run: |
           npm run build
-          npm run release
+          npm run publish
         env:
           CI: true
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
