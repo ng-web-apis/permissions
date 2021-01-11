@@ -26,6 +26,9 @@
         "Alexander Inkin <alexander@inkin.ru>",
         "Roman Sedov <79601794011@ya.ru>"
     ],
+    "publishConfig": {
+        "access": "public"
+    },
     "repository": "https://github.com/ng-web-apis/permissions",
     "bugs": "https://github.com/ng-web-apis/permissions/issues",
     "homepage": "https://github.com/ng-web-apis/permissions#README"
