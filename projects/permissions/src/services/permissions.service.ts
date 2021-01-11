@@ -6,6 +6,7 @@ import {PERMISSIONS_SUPPORT} from '../tokens/permissions-support';
 
 export type PermissionsQueryArgs = Parameters<typeof Permissions.prototype.query>[0];
 
+// @dynamic
 @Injectable({
     providedIn: 'root',
 })
