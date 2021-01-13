@@ -1,11 +1,6 @@
-name: Pull Request
+name: CI
 
-on:
-    pull_request:
-        branches:
-            - main
-            - next
-            - beta
+on: push
 
 jobs:
     build:
