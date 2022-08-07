@@ -8,7 +8,7 @@ import {SAMPLE} from './samples/basic';
 @Component({
     selector: 'main',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.less'],
+    styleUrls: ['./app.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {

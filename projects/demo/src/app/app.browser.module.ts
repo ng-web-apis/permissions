@@ -3,7 +3,6 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {HIGHLIGHT_OPTIONS, HighlightModule, HighlightOptions} from 'ngx-highlightjs';
 import {AppComponent} from './app.component';
-import {AppRoutingModule} from './app.routes';
 
 export const highlightOptions: HighlightOptions = {
     coreLibraryLoader: () => import('highlight.js/lib/core'),
@@ -16,11 +15,7 @@ export const highlightOptions: HighlightOptions = {
 
 @NgModule({
     bootstrap: [AppComponent],
-    imports: [
-        BrowserModule.withServerTransition({appId: 'demo'}),
-        AppRoutingModule,
-        HighlightModule,
-    ],
+    imports: [BrowserModule.withServerTransition({appId: 'demo'}), HighlightModule],
     declarations: [AppComponent],
     providers: [
         {

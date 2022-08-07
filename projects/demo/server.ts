@@ -3,13 +3,12 @@ import 'zone.js/dist/zone-node';
 import {APP_BASE_HREF} from '@angular/common';
 import {ngExpressEngine} from '@nguniversal/express-engine';
 import * as express from 'express';
-import {Express} from 'express';
 import {existsSync} from 'fs';
 import {join} from 'path';
 import {AppServerModule} from './src/main.server';
 
 // The Express app is exported so that it can be used by serverless Functions.
-export function app(): Express {
+export function app(): express.Express {
     const server = express();
     const distFolder = join(process.cwd(), 'dist/demo/browser');
     const indexHtml = existsSync(join(distFolder, 'index.original.html'))
@@ -21,7 +20,7 @@ export function app(): Express {
         'html',
         ngExpressEngine({
             bootstrap: AppServerModule,
-        }) as any,
+        }),
     );
 
     server.set('view engine', 'html');
@@ -72,3 +71,28 @@ if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
 }
 
 export * from './src/main.server';
+
+/**
+ * Workaround for the issue with ngx-highlightjs@5.0.0 not working in SSR mode.
+ * Latest version potentially works with it (need to be verified). However,
+ * version 5.0.0 seems to be most appropriate to use with ng v12.
+ */
+if (!global['requestAnimationFrame']) {
+    global['requestAnimationFrame'] = (callback: any): any => {
+        let lastTime = 0;
+        const currTime = new Date().getTime();
+        const timeToCall = Math.max(0, 16 - (currTime - lastTime));
+        const id = setTimeout(() => {
+            callback(currTime + timeToCall);
+        }, timeToCall);
+
+        lastTime = currTime + timeToCall;
+
+        return id;
+    };
+
+    // tslint:disable-next-line:arrow-parens
+    global['cancelAnimationFrame'] = id => {
+        clearTimeout(id);
+    };
+}

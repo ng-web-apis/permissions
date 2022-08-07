@@ -3,22 +3,30 @@
     "compilerOptions": {
         "baseUrl": "./",
         "outDir": "./dist/out-tsc",
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
         "sourceMap": true,
         "declaration": false,
-        "module": "esnext",
-        "moduleResolution": "node",
+        "module": "es2020",
+        "downlevelIteration": true,
         "experimentalDecorators": true,
+        "moduleResolution": "node",
         "importHelpers": true,
-        "strict": true,
-        "noFallthroughCasesInSwitch": true,
-        "noImplicitReturns": true,
         "noUnusedParameters": true,
         "noUnusedLocals": true,
-        "target": "es2015",
+        "target": "es2017",
         "typeRoots": ["node_modules/@types"],
-        "lib": ["es2018", "dom"],
         "paths": {
             "@ng-web-apis/permissions": ["projects/permissions/src/public-api"]
-        }
+        },
+        "lib": ["es2018", "dom"]
+    },
+    "angularCompilerOptions": {
+        "enableI18nLegacyMessageIdFormat": false,
+        "strictInjectionParameters": true,
+        "strictInputAccessModifiers": true,
+        "strictTemplates": true
     }
 }
