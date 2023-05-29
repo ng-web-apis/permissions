@@ -1,4 +1,7 @@
+___
+___
 **Attention!** This repository is archived and the library has been moved to [tinkoff/ng-web-apis](https://github.com/Tinkoff/ng-web-apis) monorepository
+___
 ___
 # ![ng-web-apis logo](projects/demo/src/assets/logo.svg) Permissions API for Angular
 
